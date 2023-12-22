@@ -3,6 +3,8 @@ package javaspring.javaspringpractice.service;
 import javaspring.javaspringpractice.domain.Member;
 import javaspring.javaspringpractice.repository.MemberRepository;
 import javaspring.javaspringpractice.repository.MemoryMemberRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
@@ -10,9 +12,9 @@ import java.util.Optional;
 public class MemberService {
 
     private final MemberRepository memberRepository;
-
     // 외부에서 이 클래스 객체를 사용 가능.
     // 외부에서 memberRepository를 만들어 넣는 것이기 때문에 DI(Dependency Injection)에 해당됨.
+
     public MemberService(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
     }
