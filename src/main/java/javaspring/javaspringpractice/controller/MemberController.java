@@ -1,12 +1,14 @@
 package javaspring.javaspringpractice.controller;
 
 import javaspring.javaspringpractice.domain.Member;
-import javaspring.javaspringpractice.repository.MemberRepository;
 import javaspring.javaspringpractice.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import java.util.List;
 
 @Controller
 public class MemberController {
@@ -32,4 +34,12 @@ public class MemberController {
 
         return "redirect:/";                        // 작업을 마무리한 뒤 홈으로 다시 보냄(redirect:/)
     }
+
+    @GetMapping("/members")
+    public String list(Model model){
+        List<Member> members = memberService.findMembers();   // List Member로 제네릭(<>) 타입 설정 = 모든 member 정보 가져와서 members 변수에 저장
+        model.addAttribute("members", members);   // model에 key=members / value=members(List) 저장
+        return "members/memberList";                          // members/memberList 를 반환. 그 위치로 이동
+    }
 }
+
