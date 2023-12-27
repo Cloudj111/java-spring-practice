@@ -1,5 +1,6 @@
 package javaspring.javaspringpractice.service;
 
+import jakarta.transaction.Transactional;
 import javaspring.javaspringpractice.domain.Member;
 import javaspring.javaspringpractice.repository.MemberRepository;
 import javaspring.javaspringpractice.repository.MemoryMemberRepository;
@@ -9,6 +10,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+// JPA는 DB 변경이 일어날 때 @Transactional이 필요함.
+@Transactional          // 추가
 public class MemberService {
 
     private final MemberRepository memberRepository;
@@ -22,7 +25,7 @@ public class MemberService {
     //회원 가입
     public long join(Member member){
         // 같은 이름이 있는 중복 멤버는 허용x
-//        Optional<Member> result = memberRepository.findByName(member.getName());
+//        Optional<Member> result = memberRepository.findByName(member.getName());  // 기본 소스 코드
 //        result.ifPresent(m -> {
 //            throw new IllegalStateException("이미 존재하는 회원입니다.");
 //        });
@@ -35,6 +38,7 @@ public class MemberService {
 
     }
 
+    // 중복되는 회원 이름이 있는지 체크
     private void validateDuplicateMember(Member member) {
         memberRepository.findByName(member.getName())
                         .ifPresent(m -> {

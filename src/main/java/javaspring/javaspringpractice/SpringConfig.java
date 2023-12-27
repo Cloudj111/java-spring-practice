@@ -1,22 +1,29 @@
 package javaspring.javaspringpractice;
 
-import javaspring.javaspringpractice.repository.JdbcTemplateMemberRepository;
+import jakarta.persistence.EntityManager;
+import javaspring.javaspringpractice.repository.JpaMemberRepository;
 import javaspring.javaspringpractice.repository.MemberRepository;
-import javaspring.javaspringpractice.repository.MemoryMemberRepository;
 import javaspring.javaspringpractice.service.MemberService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import javax.sql.DataSource;
 
 @Configuration
 public class SpringConfig {
 
-    private DataSource dataSource;
+    private EntityManager em;
 
-    public SpringConfig(DataSource dataSource) {
-        this.dataSource = dataSource;
+    @Autowired
+    public SpringConfig(EntityManager em) {
+        this.em = em;
     }
+
+//    기존 Spring, JDBC 코드
+//    private DataSource dataSource;
+//
+//    public SpringConfig(DataSource dataSource) {
+//        this.dataSource = dataSource;
+//    }
 
 
     @Bean
@@ -24,11 +31,11 @@ public class SpringConfig {
         return new MemberService(memoryMemberRepository());
     }
 
-    // 기존 저장소 MemoryMemberRepository에서 JdbcTemplateMemberRepository로 작성 코드를 변경(저장소 위치는 바뀌지 않음)
     @Bean
     public MemberRepository memoryMemberRepository(){
-//        return new MemoryMemberRepository();
-        return new JdbcTemplateMemberRepository(dataSource);
+//        return new MemoryMemberRepository();                  // # 메모리에 저장하는 코드
+//        return new JdbcTemplateMemberRepository(dataSource);  // # JDBC로 DB 접근해서 사용하는 코드
+        return new JpaMemberRepository(em);                     // # JPA로 DB 접근해서 사용하는 코드
     }
 
 }
