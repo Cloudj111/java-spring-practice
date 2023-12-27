@@ -32,10 +32,12 @@ public class MemberService {
 
         // 입력된 값 member 객체의 name 값을 꺼내 기존 repository에서 같은 값이 있는지 확인.
         // 위 코드에서 좀 더 간결하게 정리된 코드. ->  Optional<Member> result 생략.
+
+        long start = System.currentTimeMillis();
+
         validateDuplicateMember(member); // 중복 회원 검증
         memberRepository.save(member);
         return member.getId();
-
     }
 
     // 중복되는 회원 이름이 있는지 체크

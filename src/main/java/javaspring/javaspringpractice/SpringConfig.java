@@ -1,5 +1,6 @@
 package javaspring.javaspringpractice;
 
+import javaspring.javaspringpractice.aop.TimeTraceAop;
 import javaspring.javaspringpractice.repository.JpaMemberRepository;
 import javaspring.javaspringpractice.repository.MemberRepository;
 import javaspring.javaspringpractice.service.MemberService;
@@ -49,5 +50,10 @@ public class SpringConfig {
 //        return new JdbcTemplateMemberRepository(dataSource);    // # JDBC로 DB 접근해서 사용하는 코드
 //        return new JpaMemberRepository(em);                     // # JPA로 DB 접근해서 사용하는 코드
 //    }
-
+    // @Component 대신 @Bean으로 등록하는 방법
+    // @Aspect로 Aspect 관점으로 객체 생성할 클래스를 찾고 SpringConfig에서 Bean으로 등록
+    // SpringConfig에 설정하지 않는다면, @Aspect로 지정한 클래스에 @Component를 설정
+//    public TimeTraceAop timeTraceAop(){
+//        return timeTraceAop();
+//    }
 }
