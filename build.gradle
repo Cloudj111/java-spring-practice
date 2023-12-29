@@ -16,6 +16,7 @@ repositories {
 }
 
 dependencies {
+	// library config
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
@@ -25,8 +26,10 @@ dependencies {
 //	runtimeOnly 'com.mysql:mysql-connector-j'	// mysql connector config
 	implementation group: 'org.postgresql', name: 'postgresql', version: '42.2.19'
 	implementation group: 'org.bgee.log4jdbc-log4j2', name: 'log4jdbc-log4j2-jdbc4.1', version: '1.16'
+
 }
 
 tasks.named('test') {
 	useJUnitPlatform()
+
 }
